@@ -1,3 +1,5 @@
 venv/
 __pycache__/
 *.pyc
+ml_backend/audio_dataset/
+*.wav
