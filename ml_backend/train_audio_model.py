@@ -1,4 +1,3 @@
-import os
 import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
@@ -66,6 +65,5 @@ history = model.fit(
     callbacks=[early_stop]
 )
 
-# Save model
 model.save("audio_model.h5")
 print("Model saved as audio_model.h5")

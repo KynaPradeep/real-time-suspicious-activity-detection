@@ -11,11 +11,6 @@ try:
 except Exception:
     Client = None
 
-
-# =========================
-# ENVIRONMENT CONFIG
-# =========================
-
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_SMS_FROM = os.getenv("TWILIO_SMS_FROM", "")
@@ -25,23 +20,11 @@ EMERGENCY_CONTACTS = os.getenv("EMERGENCY_CONTACTS", "")
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "db", "security.db")
 os.makedirs(os.path.join(os.path.dirname(__file__), "..", "db"), exist_ok=True)
 
-
-# =========================
-# IEEE PAPER INSPIRED CONFIG
-# =========================
-
-# Temporal window for confirming suspicious events
 EVENT_HISTORY_WINDOW = 5
 EVENT_CONFIRMATION_THRESHOLD = 3
 MIN_CONFIDENCE_THRESHOLD = 0.6
 
-# Store recent detections for temporal consistency
 _event_history = defaultdict(lambda: deque(maxlen=EVENT_HISTORY_WINDOW))
-
-
-# =========================
-# DATABASE SETUP
-# =========================
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -59,11 +42,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-
-# =========================
-# IEEE PAPER INSPIRED LOGIC
-# =========================
-
 def _should_confirm_event(event_type: str, confidence: float) -> bool:
     """
     IEEE paper inspired change:
@@ -79,11 +57,6 @@ def _should_confirm_event(event_type: str, confidence: float) -> bool:
 
     return len(history) >= EVENT_CONFIRMATION_THRESHOLD
 
-
-# =========================
-# EVENT LOGGING
-# =========================
-
 def log_event(
     source: str,
     event_type: str,
@@ -95,8 +68,6 @@ def log_event(
     Events are logged only if they pass temporal + confidence checks.
     """
 
-    # IEEE paper inspired change:
-    # Apply temporal consistency + confidence filtering before logging
     if not _should_confirm_event(event_type, confidence):
         return {
             "status": "ignored",
@@ -131,16 +102,9 @@ def log_event(
         "confidence": float(confidence),
         "meta": meta or {}
     }
-
-    # Notify asynchronously
     Thread(target=_maybe_notify_contacts, args=(event,), daemon=True).start()
 
     return event
-
-
-# =========================
-# ALERT / NOTIFICATION LOGIC
-# =========================
 
 def _maybe_notify_contacts(event: dict):
     """

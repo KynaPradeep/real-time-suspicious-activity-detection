@@ -9,20 +9,19 @@ def init_db():
     cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS events (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        event_type TEXT,
-        label TEXT,
-        confidence REAL,
-        timestamp REAL,
-        sms_sent INTEGER DEFAULT 0
-    )
-    """)
+CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_type TEXT,
+    label TEXT,
+    confidence REAL,
+    timestamp REAL
+)
+""")
 
     conn.commit()
     conn.close()
 
-def save_event(event_type, label, confidence, timestamp=None, sms_sent=0):
+def save_event(event_type, label, confidence, timestamp=None):
     if timestamp is None:
         timestamp = time.time()
 
@@ -30,9 +29,9 @@ def save_event(event_type, label, confidence, timestamp=None, sms_sent=0):
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO events (event_type, label, confidence, timestamp, sms_sent)
-    VALUES (?, ?, ?, ?, ?)
-    """, (event_type, label, confidence, timestamp, sms_sent))
+    INSERT INTO events (event_type, label, confidence, timestamp)
+    VALUES (?, ?, ?, ?)
+    """, (event_type, label, confidence, timestamp))
 
     conn.commit()
     conn.close()
@@ -42,7 +41,7 @@ def get_all_events():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT id, event_type, label, confidence, timestamp, sms_sent
+    SELECT id, event_type, label, confidence, timestamp
     FROM events
     ORDER BY id DESC
     """)
@@ -56,8 +55,7 @@ def get_all_events():
             "type": r[1],
             "label": r[2],
             "confidence": r[3],
-            "timestamp": r[4],
-            "sms_sent": r[5]
+            "timestamp": r[4]
         }
         for r in rows
     ]

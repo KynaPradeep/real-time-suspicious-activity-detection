@@ -84,15 +84,6 @@ button.active {
   font-weight: bold;
 }
 
-.sms {
-  margin-top: 6px;
-  display: inline-block;
-  background: #ef4444;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-}
 </style>
 </head>
 
@@ -100,7 +91,9 @@ button.active {
 
 <header>
   <h1>Suspicious Activity Monitor</h1>
-  <div class="live">🟢 Live Monitoring</div>
+  <div class="live">
+🟢 Live Monitoring | YOLOv8 + CNN Audio Detection
+</div>
 </header>
 
 <div class="filters">
@@ -151,7 +144,6 @@ async function loadEvents() {
       <div>
         <div class="label">${ev.label.toUpperCase()}</div>
         <div class="meta">${ev.type.toUpperCase()} • ${time}</div>
-        ${ev.sms_sent === 1 ? '<div class="sms">SMS SENT</div>' : ''}
       </div>
       <div class="confidence">${(conf * 100).toFixed(1)}%</div>
     `;

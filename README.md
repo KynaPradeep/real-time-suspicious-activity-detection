@@ -1,68 +1,39 @@
-Real-Time Suspicious Activity Detection System
+# Real-Time Suspicious Activity Detection System
 
-A deep learning based surveillance system that detects suspicious human activity using CNN/YOLO models and sends real-time SMS alerts to designated contacts.
+A real-time surveillance system that combines computer vision and deep learning-based audio classification to detect suspicious activities.
 
-📌 Overview
+## Features
 
-This project is designed to enhance security by automatically detecting suspicious activities from video input. It leverages computer vision and deep learning techniques to classify behavior and instantly notify users via SMS.
+- Intruder detection using YOLOv8
+- Audio event classification using a CNN
+- Detection of scream, glass break, and alarm sounds
+- Live monitoring dashboard
+- SQLite database event logging
+- Real-time audio and video processing
 
-🧠 Key Features
+## Deep Learning Pipeline
 
-📷 Real-time video processing using OpenCV
+Audio Dataset → Spectrogram Generation → CNN Training → Real-Time Audio Classification
 
-🧠 Activity detection using CNN / YOLO
+## Technologies Used
 
-🚨 Suspicious activity identification
+- Python
+- TensorFlow / Keras
+- YOLOv8
+- OpenCV
+- Librosa
+- FastAPI
+- SQLite
 
-📩 Instant SMS alerts using API integration
+## Project Structure
 
-⚡ Automated monitoring system
+- `ml_backend/` – Deep learning models and detection logic
+- `api_backend/` – FastAPI backend
+- `db/` – Event database management
+- `frontend/` – Monitoring dashboard
 
-🛠️ Tech Stack
+## Future Improvements
 
-Python
-
-OpenCV
-
-TensorFlow / PyTorch
-
-YOLO (Object Detection)
-
-Twilio API (SMS alerts)
-
-⚙️ How It Works
-
-Capture video stream
-
-Process frames using OpenCV
-
-Run detection model (CNN/YOLO)
-
-Identify suspicious activity
-
-Trigger SMS alert
-
-📂 Project Structure
-ml_backend/        # ML models and detection logic  
-frontend/          # UI components (if applicable)  
-api_backend/       # Backend APIs  
-docs/              # Documentation  
-🎯 Use Cases
-
-Smart surveillance systems
-
-Home security
-
-Public safety monitoring
-
-Office/building security
-
-📈 Future Improvements
-
-Improve detection accuracy
-
-Add multi-class activity detection
-
-Deploy as web/mobile app
-
-Integrate live CCTV feeds
+- Improved audio dataset
+- Mobile notifications
+- Multi-camera support

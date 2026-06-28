@@ -41,7 +41,7 @@ while True:
     print(f"Prediction: {label} (confidence: {conf:.2f})")
 
     # optional alert
-    if label != "normal" and conf > 0.6:
+    if label != "normal" and conf > 0.95:
         print(" ALERT! Suspicious audio detected!")
 
     time.sleep(0.5)

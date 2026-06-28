@@ -1,0 +1,3 @@
+Open terminal 1: python -m uvicorn api_backend.main:app --reload
+Open terminal 2: python ml_backend/main_backend.py
+Double click on html file
